@@ -9,7 +9,7 @@ mod instructions;
 
 use instructions::*;
 
-declare_id!("9ChqoFDgVmmvD6Hcajv2JppVZ7S1qPDozrTw4V7q2yLP");
+declare_id!("97CULumuehCLe4rxT7fHJQje49QT2NC3T6zTmtEBSDRj");
 
 #[ephemeral]
 #[program]
@@ -23,13 +23,25 @@ pub mod er_state_account {
         Ok(())
     }
 
-    pub fn update(ctx: Context<UpdateUser>, new_data: u64) -> Result<()> {
+    pub fn create_rand(ctx: Context<OutsideRandVrf>, user_seed: u8) -> Result<()> {
+        ctx.accounts.create_rand(user_seed)?;
+               
+        Ok(())
+    }
+
+    pub fn create_er_rand(ctx: Context<InsideRandVrf>, user_seed: u8) -> Result<()> {
+        ctx.accounts.create_er_rand(user_seed)?;
+               
+        Ok(())
+    }
+
+    pub fn update(ctx: Context<UpdateUser>, new_data: [u8; 32]) -> Result<()> {
         ctx.accounts.update(new_data)?;
         
         Ok(())
     }
 
-    pub fn update_commit(ctx: Context<UpdateCommit>, new_data: u64) -> Result<()> {
+    pub fn update_commit(ctx: Context<UpdateCommit>, new_data: [u8; 32]) -> Result<()> {
         ctx.accounts.update_commit(new_data)?;
         
         Ok(())

@@ -1,0 +1,14 @@
+/home/divine/turbine/acc-turbine/magicblock-er-example/target/release/deps/serde-452e5e9bc8a1b922.d: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/lib.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/integer128.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/mod.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/de.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/ser.rs /home/divine/turbine/acc-turbine/magicblock-er-example/target/release/build/serde-39fe384e058af778/out/private.rs
+
+/home/divine/turbine/acc-turbine/magicblock-er-example/target/release/deps/libserde-452e5e9bc8a1b922.rlib: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/lib.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/integer128.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/mod.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/de.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/ser.rs /home/divine/turbine/acc-turbine/magicblock-er-example/target/release/build/serde-39fe384e058af778/out/private.rs
+
+/home/divine/turbine/acc-turbine/magicblock-er-example/target/release/deps/libserde-452e5e9bc8a1b922.rmeta: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/lib.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/integer128.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/mod.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/de.rs /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/ser.rs /home/divine/turbine/acc-turbine/magicblock-er-example/target/release/build/serde-39fe384e058af778/out/private.rs
+
+/home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/lib.rs:
+/home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/integer128.rs:
+/home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/mod.rs:
+/home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/de.rs:
+/home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.227/src/private/ser.rs:
+/home/divine/turbine/acc-turbine/magicblock-er-example/target/release/build/serde-39fe384e058af778/out/private.rs:
+
+# env-dep:OUT_DIR=/home/divine/turbine/acc-turbine/magicblock-er-example/target/release/build/serde-39fe384e058af778/out
