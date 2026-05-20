@@ -4,7 +4,7 @@ use ephemeral_vrf_sdk::{
     types::SerializableAccountMeta};
 
 use crate::{ID, instruction};
-
+use crate::state::UserAccount;
 
 #[vrf]
 #[derive(Accounts)]
@@ -12,6 +12,8 @@ pub struct InsideRandVrf<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
+    #[account(mut)]
+    pub user_account: Account<'info, UserAccount>,
     /// CHECK: done in code
     #[account(mut, address =  ephemeral_vrf_sdk::consts::DEFAULT_EPHEMERAL_QUEUE)]
     pub oracle_queue: AccountInfo<'info>
@@ -23,10 +25,10 @@ impl<'info>InsideRandVrf<'info> {
             payer: self.payer.key(),
             oracle_queue: self.oracle_queue.key(),
             callback_program_id: ID,
-            callback_discriminator: instruction::Update::DISCRIMINATOR.to_vec(),
+            callback_discriminator: instruction::UpdateCommit::DISCRIMINATOR.to_vec(),
             caller_seed: [client_seed; 32],
             accounts_metas: Some(vec![SerializableAccountMeta { 
-                pubkey: self.payer.key(), 
+                pubkey: self.user_account.key(), 
                 is_signer: false, 
                 is_writable: true
             }]),

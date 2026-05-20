@@ -72,6 +72,10 @@
           "signer": true
         },
         {
+          "name": "user_account",
+          "writable": true
+        },
+        {
           "name": "oracle_queue",
           "writable": true,
           "address": "5hBR571xnXppuCPveTrctfTU7tJLSN94nq7kv7FRK5Tc"
@@ -133,6 +137,27 @@
           "name": "payer",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "user_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
         },
         {
           "name": "oracle_queue",
@@ -515,34 +540,13 @@
       ],
       "accounts": [
         {
-          "name": "user",
-          "signer": true
-        },
-        {
-          "name": "user_account",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  117,
-                  115,
-                  101,
-                  114
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "user"
-              }
-            ]
-          }
-        },
-        {
           "name": "vrf_program_identity",
           "signer": true,
           "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
+        },
+        {
+          "name": "user_account",
+          "writable": true
         }
       ],
       "args": [
@@ -571,9 +575,9 @@
       ],
       "accounts": [
         {
-          "name": "user",
-          "writable": true,
-          "signer": true
+          "name": "vrf_program_identity",
+          "signer": true,
+          "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
         },
         {
           "name": "user_account",
@@ -591,15 +595,11 @@
               },
               {
                 "kind": "account",
-                "path": "user"
+                "path": "user_account.user",
+                "account": "UserAccount"
               }
             ]
           }
-        },
-        {
-          "name": "vrf_program_identity",
-          "signer": true,
-          "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
         },
         {
           "name": "magic_program",
@@ -650,8 +650,13 @@
             "type": "pubkey"
           },
           {
-            "name": "data",
-            "type": "u8"
+            "name": "password",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
           },
           {
             "name": "bump",

@@ -4,6 +4,7 @@ use ephemeral_vrf_sdk::{
     types::SerializableAccountMeta};
 
 use crate::{ID, instruction};
+use crate::state::UserAccount;
 
 
 #[vrf]
@@ -12,13 +13,24 @@ pub struct OutsideRandVrf<'info> {
     #[account(mut)]
     pub payer: Signer<'info>,
 
+    #[account(
+        mut,
+        seeds = [b"user", payer.key().as_ref()],
+        bump
+    )]
+    pub user_account: Account<'info, UserAccount>,
+
     /// CHECK: done in code
     #[account(mut, address =  ephemeral_vrf_sdk::consts::DEFAULT_QUEUE)]
-    pub oracle_queue: AccountInfo<'info>
+    pub oracle_queue: UncheckedAccount<'info>
 }
 
 impl<'info>OutsideRandVrf<'info> {
     pub fn create_rand(&mut self, client_seed: u8) -> Result<()> {
+
+        msg!(" ========================> Consuming random number: {:?}", client_seed);
+        println!(" ========================> Consuming random number: {:?}", client_seed);
+
          let ix = create_request_randomness_ix(RequestRandomnessParams {
             payer: self.payer.key(),
             oracle_queue: self.oracle_queue.key(),
@@ -26,7 +38,7 @@ impl<'info>OutsideRandVrf<'info> {
             callback_discriminator: instruction::Update::DISCRIMINATOR.to_vec(),
             caller_seed: [client_seed; 32],
             accounts_metas: Some(vec![SerializableAccountMeta { 
-                pubkey: self.payer.key(), 
+                pubkey: self.user_account.key(), 
                 is_signer: false, 
                 is_writable: true
             }]),

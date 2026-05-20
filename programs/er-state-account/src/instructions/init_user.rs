@@ -21,7 +21,7 @@ impl<'info> InitUser<'info> {
     pub fn initialize(&mut self, bumps: &InitUserBumps) -> Result<()> {
         self.user_account.set_inner(UserAccount { 
             user: *self.user.key, 
-            data: 0, 
+            password: [0u8; 32],
             bump: bumps.user_account 
         });
         

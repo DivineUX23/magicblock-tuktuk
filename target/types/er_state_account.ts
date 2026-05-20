@@ -78,6 +78,10 @@ export type ErStateAccount = {
           "signer": true
         },
         {
+          "name": "userAccount",
+          "writable": true
+        },
+        {
           "name": "oracleQueue",
           "writable": true,
           "address": "5hBR571xnXppuCPveTrctfTU7tJLSN94nq7kv7FRK5Tc"
@@ -139,6 +143,27 @@ export type ErStateAccount = {
           "name": "payer",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "userAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
         },
         {
           "name": "oracleQueue",
@@ -521,34 +546,13 @@ export type ErStateAccount = {
       ],
       "accounts": [
         {
-          "name": "user",
-          "signer": true
-        },
-        {
-          "name": "userAccount",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  117,
-                  115,
-                  101,
-                  114
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "user"
-              }
-            ]
-          }
-        },
-        {
           "name": "vrfProgramIdentity",
           "signer": true,
           "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
+        },
+        {
+          "name": "userAccount",
+          "writable": true
         }
       ],
       "args": [
@@ -577,9 +581,9 @@ export type ErStateAccount = {
       ],
       "accounts": [
         {
-          "name": "user",
-          "writable": true,
-          "signer": true
+          "name": "vrfProgramIdentity",
+          "signer": true,
+          "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
         },
         {
           "name": "userAccount",
@@ -597,15 +601,11 @@ export type ErStateAccount = {
               },
               {
                 "kind": "account",
-                "path": "user"
+                "path": "user_account.user",
+                "account": "userAccount"
               }
             ]
           }
-        },
-        {
-          "name": "vrfProgramIdentity",
-          "signer": true,
-          "address": "9irBy75QS2BN81FUgXuHcjqceJJRuc9oDkAe8TKVvvAw"
         },
         {
           "name": "magicProgram",
@@ -656,8 +656,13 @@ export type ErStateAccount = {
             "type": "pubkey"
           },
           {
-            "name": "data",
-            "type": "u8"
+            "name": "password",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
           },
           {
             "name": "bump",

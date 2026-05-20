@@ -12,9 +12,10 @@ pub struct Delegate<'info> {
         mut,
         del,
         seeds = [b"user", user.key().as_ref()],
-        bump = user_account.bump,
+        bump,
     )]
-    pub user_account: Account<'info, UserAccount>,
+    /// CHECK: This is to test
+    pub user_account: AccountInfo<'info>,
     /// CHECK: This is not dangerous because we don't read or write from this account
     pub validator: UncheckedAccount<'info>,
     pub system_program: Program<'info, System>,

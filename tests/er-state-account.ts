@@ -3,6 +3,11 @@ import { Program } from "@coral-xyz/anchor";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { GetCommitmentSignature } from "@magicblock-labs/ephemeral-rollups-sdk";
 import { ErStateAccount } from "../target/types/er_state_account";
+import { bytes } from "@coral-xyz/anchor/dist/cjs/utils";
+
+const ORACLE_QUEUE = new PublicKey("Cuj97ggrhhidhbu39TijNVqE74xvKJ69gDervRUXAxGh");
+const ER_ORACLE_QUEUE = new PublicKey("5hBR571xnXppuCPveTrctfTU7tJLSN94nq7kv7FRK5Tc");
+
 
 describe("er-state-account", () => {
   // Configure the client to use the local cluster.
@@ -25,6 +30,8 @@ describe("er-state-account", () => {
 
   const program = anchor.workspace.erStateAccount as Program<ErStateAccount>;
 
+  const programER = new anchor.Program(program.idl, providerEphemeralRollup);
+
   const userAccount = anchor.web3.PublicKey.findProgramAddressSync(
     [Buffer.from("user"), anchor.Wallet.local().publicKey.toBuffer()],
     program.programId
@@ -41,6 +48,44 @@ describe("er-state-account", () => {
     console.log("User Account initialized: ", tx);
   });
 
+
+  const client_seed = 0;
+
+  it("Non ER rand created!", async () => {
+    // Add your test here.
+    const tx = await program.methods.createRand(client_seed).accountsPartial({
+      payer: anchor.Wallet.local().publicKey,
+      userAccount: userAccount,
+      oracleQueue: ORACLE_QUEUE,
+    })
+    .rpc();
+    console.log("Non ER randdom created: ", tx);
+
+    let update = false;
+    let attempts = 0;
+
+    while(!update && attempts < 3) {
+      const account = await program.account.userAccount.fetch(userAccount);
+      console.log("Password ", account.password);
+
+      if (account.password.some(bytes => bytes != 0)) {
+        console.log("VRF Randomness succeful");
+        console.log("VRF Randomness succeful ", account.password);
+        update = true;
+      } else {
+        console.log("Still waiting")
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        attempts++;
+      }
+    }
+
+    if (!update) {
+      throw new Error("VRF callback failed")
+    }
+
+  });
+
+  /*
   it("Update State!", async () => {
     const tx = await program.methods.update(new anchor.BN(42)).accountsPartial({
       user: anchor.Wallet.local().publicKey,
@@ -49,6 +94,7 @@ describe("er-state-account", () => {
     .rpc();
     console.log("\nUser Account State Updated: ", tx);
   });
+  */
 
   it("Delegate to Ephemeral Rollup!", async () => {
 
@@ -57,11 +103,51 @@ describe("er-state-account", () => {
       userAccount: userAccount,
       validator: new PublicKey("MAS1Dt9qreoRMQ14YQuhg8UTZMMzDdKhmkZMECCzk57"),
       systemProgram: anchor.web3.SystemProgram.programId,
-    }).rpc({skipPreflight: true});
+    }).rpc();
 
     console.log("\nUser Account Delegated to Ephemeral Rollup: ", tx);
   });
 
+
+
+
+  it("ER rand created!", async () => {
+    // Add your test here.
+    const tx = await programER.methods.createErRand(client_seed).accountsPartial({
+      payer: providerEphemeralRollup.wallet.publicKey,
+      userAccount: userAccount,
+      oracleQueue: ER_ORACLE_QUEUE,
+    })
+    .rpc({ skipPreflight: true });
+    console.log("ER randdom created: ", tx);
+
+    let update = false;
+    let attempts = 0;
+
+    while(!update && attempts < 3) {
+      const account = await program.account.userAccount.fetch(userAccount);
+      console.log("Password ", account.password);
+
+      if (account.password.some(bytes => bytes != 0)) {
+        console.log("ER VRF Randomness succeful ", account.password);
+        update = true;
+      } else {
+        console.log("Still waiting")
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        attempts++;
+      }
+
+    }
+
+    if (!update) {
+      throw new Error("VRF callback failed")
+    }
+
+  });
+
+
+
+  /*
   it("Update State and Commit to Base Layer!", async () => {
     let tx = await program.methods.updateCommit(new anchor.BN(43)).accountsPartial({
       user: providerEphemeralRollup.wallet.publicKey,
@@ -81,6 +167,9 @@ describe("er-state-account", () => {
 
     console.log("\nUser Account State Updated: ", txHash);
   });
+  */
+
+
 
   it("Commit and undelegate from Ephemeral Rollup!", async () => {
     let info = await providerEphemeralRollup.connection.getAccountInfo(userAccount);
@@ -107,6 +196,7 @@ describe("er-state-account", () => {
     console.log("\nUser Account Undelegated: ", txHash);
   });
 
+  /*
   it("Update State!", async () => {
     let tx = await program.methods.update(new anchor.BN(45)).accountsPartial({
       user: anchor.Wallet.local().publicKey,
@@ -116,6 +206,7 @@ describe("er-state-account", () => {
 
     console.log("\nUser Account State Updated: ", tx);
   });
+  */
 
   it("Close Account!", async () => {
     const tx = await program.methods.close().accountsPartial({
