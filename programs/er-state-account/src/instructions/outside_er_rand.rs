@@ -28,9 +28,6 @@ pub struct OutsideRandVrf<'info> {
 impl<'info>OutsideRandVrf<'info> {
     pub fn create_rand(&mut self, client_seed: u8) -> Result<()> {
 
-        msg!(" ========================> Consuming random number: {:?}", client_seed);
-        println!(" ========================> Consuming random number: {:?}", client_seed);
-
          let ix = create_request_randomness_ix(RequestRandomnessParams {
             payer: self.payer.key(),
             oracle_queue: self.oracle_queue.key(),

@@ -1,7 +1,7 @@
-/home/divine/turbine/acc-turbine/magicblock-er-example/target/sbpf-solana-solana/release/deps/solana_atomic_u64-92c1fbc62540937d.d: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
+/home/divine/turbine/acc-turbine/magicblock-er-tuktuk/target/sbpf-solana-solana/release/deps/solana_atomic_u64-92c1fbc62540937d.d: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
 
-/home/divine/turbine/acc-turbine/magicblock-er-example/target/sbpf-solana-solana/release/deps/libsolana_atomic_u64-92c1fbc62540937d.rlib: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
+/home/divine/turbine/acc-turbine/magicblock-er-tuktuk/target/sbpf-solana-solana/release/deps/libsolana_atomic_u64-92c1fbc62540937d.rlib: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
 
-/home/divine/turbine/acc-turbine/magicblock-er-example/target/sbpf-solana-solana/release/deps/libsolana_atomic_u64-92c1fbc62540937d.rmeta: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
+/home/divine/turbine/acc-turbine/magicblock-er-tuktuk/target/sbpf-solana-solana/release/deps/libsolana_atomic_u64-92c1fbc62540937d.rmeta: /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs
 
 /home/divine/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-atomic-u64-2.2.1/src/lib.rs:

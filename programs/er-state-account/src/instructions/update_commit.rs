@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use ephemeral_rollups_sdk::{anchor::commit, ephem::commit_accounts};
+use ephemeral_rollups_sdk::{anchor::commit, ephem::commit_and_undelegate_accounts};
 
 use crate::{state::UserAccount, create_password};
 
@@ -10,11 +10,7 @@ pub struct UpdateCommit<'info> {
     #[account(address = ephemeral_vrf_sdk::consts::VRF_PROGRAM_IDENTITY)]
     pub vrf_program_identity: Signer<'info>,
 
-    #[account(
-        mut,
-        seeds = [b"user", user_account.user.key().as_ref()],
-        bump = user_account.bump,
-    )]
+    #[account(mut)]
     pub user_account: Account<'info, UserAccount>,
 
 }
@@ -32,12 +28,22 @@ impl<'info> UpdateCommit<'info> {
         // Update the data field
         self.user_account.password = hash;
 
+        /*
         commit_accounts(
             &self.user_account.to_account_info(), 
             vec![&self.user_account.to_account_info()], 
             &self.magic_context, 
             &self.magic_program
         )?;
+        
+
+        commit_and_undelegate_accounts(
+            &self.user_account.to_account_info(), 
+            vec![&self.user_account.to_account_info()], 
+            &self.magic_context, 
+            &self.magic_program
+        )?;
+        */
         
         Ok(())
     }

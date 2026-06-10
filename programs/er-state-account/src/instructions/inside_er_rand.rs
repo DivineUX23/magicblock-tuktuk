@@ -25,7 +25,7 @@ impl<'info>InsideRandVrf<'info> {
             payer: self.payer.key(),
             oracle_queue: self.oracle_queue.key(),
             callback_program_id: ID,
-            callback_discriminator: instruction::UpdateCommit::DISCRIMINATOR.to_vec(),
+            callback_discriminator: instruction::Update::DISCRIMINATOR.to_vec(),
             caller_seed: [client_seed; 32],
             accounts_metas: Some(vec![SerializableAccountMeta { 
                 pubkey: self.user_account.key(), 
